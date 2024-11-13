@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!-- styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="menu">
+      <!-- title -->
+      <div class="title">
+        <h2>FOOD FRESHH</h2>
+        <div class="underline"></div>
+      </div>
+      <!-- menu items -->
+      <div class="section-center" id="menu-items">
+        <!-- Items will be dynamically inserted here by JavaScript -->
+      </div>
+      <!-- cart link -->
+      <div class="cart">
+        <a href="checkout.html">Go to Checkout</a>
+      </div>
+    </section>
+
+    <!-- javascript -->
+    <script>
+      const menuItems = [
+      {
+          id: 1,
+          title: "buttermilk pancakes",
+          category: "breakfast",
+          price: 15.99,
+          img: "./images/item-1.jpeg",
+          desc: `Ajak Kencananmu untuk makan makanan manis dan sehat `,
+        },
+        {
+          id: 2,
+          title: "Diner Double",
+          category: "lunch",
+          price: 13.99,
+          img: "./images/item-2.jpeg",
+          desc: "buat pasangan mu menyukai nya.",
+        },
+        {
+          id: 3,
+          title: "Godzilla Milkshake",
+          category: "shakes",
+          price: 6.99,
+          img: "./images/item-3.jpeg",
+          desc: "minum airnya rasakan kenikmatannya.",
+        },
+        {
+          id: 4,
+          title: "Country Delight",
+          category: "breakfast",
+          price: 20.99,
+          img: "./images/item-4.jpeg",
+          desc: "hari ini dan nanti jangan lupa sehat.",
+        },
+        {
+          id: 5,
+          title: "Egg Attack",
+          category: "lunch",
+          price: 22.99,
+          img: "./images/item-5.jpeg",
+          desc: "makanan bergizi dan lezat serta menyayangi.",
+        },
+        {
+          id: 6,
+          title: "Oreo Dream",
+          category: "shakes",
+          price: 18.99,
+          img: "./images/item-6.jpeg",
+          desc: "manis dan menyehatkan serta enak.",
+        },
+        {
+          id: 7,
+          title: "Bacon Overflow",
+          category: "breakfast",
+          price: 8.99,
+          img: "./images/item-7.jpeg",
+          desc: "enak dan lezat.",
+        },
+        {
+          id: 8,
+          title: "American Classic",
+          category: "lunch",
+          price: 12.99,
+          img: "./images/item-8.jpeg",
+          desc: "perkedel daging untuk sarapanmu.",
+        },
+        {
+          id: 9,
+          title: "Quarantine Buddy",
+          category: "shakes",
+          price: 16.99,
+          img: "./images/item-9.jpeg",
+          desc: "kita minum berdua agar tidak mendua.",
+        },
+      ];
+
+      const menuContainer = document.getElementById("menu-items");
+
+      menuItems.forEach((item) => {
+        const menuItemHTML = `
+          <article class="menu-item">
+            <img src="${item.img}" alt="${item.title}" class="photo" />
+            <div class="item-info">
+              <header>
+                <h4>${item.title}</h4>
+                <h4 class="price">$${item.price.toFixed(2)}</h4>
+              </header>
+              <p class="item-text">${item.desc}</p>
+              <button class="checkout-btn" onclick="addItemToCheckout('${item.title}', ${item.price})">Checkout</button>
+            </div>
+          </article>
+        `;
+        menuContainer.innerHTML += menuItemHTML;
+      });
+
+      function addItemToCheckout(itemName, itemPrice) {
+        const checkoutItem = { name: itemName, price: itemPrice };
+        let checkoutItems = JSON.parse(localStorage.getItem("checkoutItems")) || [];
+        checkoutItems.push(checkoutItem);
+        localStorage.setItem("checkoutItems", JSON.stringify(checkoutItems));
+        window.location.href = "checkout.html";
+      }
+    </script>
+  </body>
+</html>

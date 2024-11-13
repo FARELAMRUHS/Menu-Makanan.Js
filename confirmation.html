@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Page</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="app.css">
+    <!-- FontAwesome for the checkmark icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>Transaction Completed</h2>
+        <p>Your transaction has been successfully completed. Here are your payment details:</p>
+
+        <div id="transaction-details">
+            <!-- Transaction details will be inserted dynamically -->
+        </div>
+
+        <p><i class="fas fa-check-circle" style="color: green; font-size: 50px;"></i></p>
+        <p>Thank you for your purchase!</p>
+    </div>
+
+    <script>
+        // Retrieve transaction details from localStorage
+        const transactionDetails = JSON.parse(localStorage.getItem('transactionDetails'));
+
+        if (transactionDetails) {
+            const transactionDetailsDiv = document.getElementById('transaction-details');
+
+            // Dynamically insert transaction details into the page
+            transactionDetailsDiv.innerHTML = `
+                <p><strong>Customer Name:</strong> ${transactionDetails.customerName}</p>
+                <p><strong>Food Item:</strong> ${transactionDetails.foodName}</p>
+                <p><strong>Payment Method:</strong> ${transactionDetails.paymentMethod}</p>
+                <p><strong>Order Queue Number:</strong> ${transactionDetails.orderNumber}</p>
+            `;
+        } else {
+            // In case no transaction details are found
+            document.body.innerHTML = '<h2>No transaction found. Please try again.</h2>';
+        }
+    </script>
+</body>
+</html>

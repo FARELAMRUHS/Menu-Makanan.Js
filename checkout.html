@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="checkout-container">
+      <h2>Checkout</h2>
+
+      <!-- Checkout item will be displayed here -->
+      <div id="checkout-item"></div>
+
+      <div class="total-price">
+        <h3>Total: $<span id="total-price">0.00</span></h3>
+      </div>
+
+      <!-- Button to go to the transaction page -->
+      <a href="transaction.html" class="btn">Proceed to Transaction</a>
+    </div>
+
+    <script>
+      // Retrieve the checkout items from localStorage
+      const checkoutItems = JSON.parse(localStorage.getItem("checkoutItems")) || [];
+      const checkoutContainer = document.getElementById("checkout-item");
+      const totalPriceElement = document.getElementById("total-price");
+
+      if (checkoutItems.length > 0) {
+        // Display only the last added item
+        const item = checkoutItems[checkoutItems.length - 1];
+
+        const checkoutItemHTML = `
+          <div class="checkout-item">
+            <h4>${item.name}</h4>
+            <span class="price">$${item.price.toFixed(2)}</span>
+            <p>Quantity: 1</p>
+          </div>
+        `;
+        checkoutContainer.innerHTML = checkoutItemHTML;
+
+        // Display the total price (price of the last item only)
+        totalPriceElement.textContent = item.price.toFixed(2);
+      } else {
+        checkoutContainer.innerHTML = "<p>No items in the cart</p>";
+        totalPriceElement.textContent = "0.00";
+      }
+    </script>
+  </body>
+</html>

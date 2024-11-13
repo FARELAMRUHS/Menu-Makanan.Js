@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Page</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="app.css">
+    <!-- FontAwesome for the checkmark icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="transaction-container">
+        <h2>Transaction Page</h2>
+        <p>Please provide the necessary details to complete the purchase.</p>
+
+        <!-- Form for entering transaction details -->
+        <form id="transaction-form">
+            <label for="customer-name">Customer Name:</label>
+            <input type="text" id="customer-name" placeholder="Enter your name" required>
+            
+            <label for="food-name">Food Item:</label>
+            <!-- Dropdown menu for food items -->
+            <select id="food-name" required>
+                <option value="">Select Food Item</option>
+                <option value="buttermilk pancakes">buttermilk pancakes</option>
+                <option value="Diner Double">Diner Double</option>
+                <option value="Godzilla Milkshake">Godzilla Milkshake</option>
+                <option value="Country Delight">Country Delight</option>
+                <option value="Egg Attack">Egg Attack</option>
+                <option value="Oreo Dream">Oreo Dream</option>
+                <option value="Bacon Overflow">Bacon Overflow</option>
+                <option value="American Classic">American Classic</option>
+                <option value="Quarantine Buddy">Quarantine Buddy</option>
+            </select>
+            
+            <label for="payment-method">Payment Method:</label>
+            <select id="payment-method" required>
+                <option value="">Select Payment Method</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+            </select>
+            
+            <label for="order-number">Order Queue Number:</label>
+            <input type="number" id="order-number" placeholder="Enter your queue number" required>
+
+            <button type="submit" class="btn">Complete Transaction</button>
+        </form>
+
+        <!-- Verification message container -->
+        <div id="verification-message" style="display: none; text-align: center;">
+            <h3>Transaction Successful!</h3>
+            <p>Your payment has been verified and the transaction is complete.</p>
+            <p><i class="fas fa-check-circle" style="color: green; font-size: 50px;"></i></p>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('transaction-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent form from submitting and refreshing page
+
+            // Capture form values
+            const customerName = document.getElementById('customer-name').value;
+            const foodName = document.getElementById('food-name').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+            const orderNumber = document.getElementById('order-number').value;
+
+            // Basic validation to ensure fields are filled
+            if (customerName && foodName && paymentMethod && orderNumber) {
+                // Store transaction details (can be adjusted to save on the server)
+                const transactionDetails = {
+                    customerName,
+                    foodName,
+                    paymentMethod,
+                    orderNumber,
+                };
+
+                // Save to localStorage for example (or send to server for processing)
+                localStorage.setItem('transactionDetails', JSON.stringify(transactionDetails));
+
+                // Show verification message and hide the form
+                document.getElementById('verification-message').style.display = 'block';
+                document.getElementById('transaction-form').style.display = 'none';
+
+                // Optionally, you can redirect to another page after a delay
+                setTimeout(() => {
+                    window.location.href = 'confirmation.html'; // Redirect to a confirmation page
+                }, 3000);
+            } else {
+                alert("Please fill in all fields to complete the transaction.");
+            }
+        });
+    </script>
+</body>
+</html>
